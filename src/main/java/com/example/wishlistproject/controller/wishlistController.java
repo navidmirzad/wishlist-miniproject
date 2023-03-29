@@ -2,6 +2,7 @@ package com.example.wishlistproject.controller;
 
 import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.model.Wish;
+import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.service.wishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,5 +53,7 @@ public class wishlistController {
         wishlistService.createUser(user);
         return "createUserSuccess";
     }
+
+
 
 }
