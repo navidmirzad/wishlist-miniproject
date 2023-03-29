@@ -1,23 +1,36 @@
 package com.example.wishlistproject.model;
 
+import java.util.List;
+
 public class Wish {
 
+    private String wishID;
     private String wishName;
     private String wishLink;
     private String wishDescription;
     private double wishPrice;
     private int wishCount;
+    private int listID;
+    List<String> wishLists;
 
-    public Wish(String wishName, String wishLink, String wishDescription, double wishPrice, int wishCount) {
+    public Wish(String wishID, String wishName, String wishLink, String wishDescription,
+                double wishPrice, int wishCount, int listID, List wishLists) {
+        this.listID = listID;
         this.wishName = wishName;
         this.wishLink = wishLink;
         this.wishDescription = wishDescription;
         this.wishPrice = wishPrice;
         this.wishCount = wishCount;
+        this.listID = listID;
+        this.wishLists = wishLists;
     }
 
     public Wish() {
 
+    }
+
+    public String getWishID() {
+        return wishID;
     }
 
     public String getWishName() {
@@ -40,6 +53,18 @@ public class Wish {
         return wishCount;
     }
 
+    public int getListID() {
+        return listID;
+    }
+
+    public List<String> getWishLists() {
+        return wishLists;
+    }
+
+    public void setWishID(String wishID) {
+        this.wishID = wishID;
+    }
+
     public void setWishName(String wishName) {
         this.wishName = wishName;
     }
@@ -60,14 +85,25 @@ public class Wish {
         this.wishCount = wishCount;
     }
 
+    public void setListID(int listID) {
+        this.listID = listID;
+    }
+
+    public void setWishLists(List<String> wishLists) {
+        this.wishLists = wishLists;
+    }
+
     @Override
     public String toString() {
         return "Wish{" +
-                "wishName='" + wishName + '\'' +
+                "wishID='" + wishID + '\'' +
+                ", wishName='" + wishName + '\'' +
                 ", wishLink='" + wishLink + '\'' +
                 ", wishDescription='" + wishDescription + '\'' +
                 ", wishPrice=" + wishPrice +
                 ", wishCount=" + wishCount +
+                ", listID=" + listID +
+                ", wishLists=" + wishLists +
                 '}';
     }
 }

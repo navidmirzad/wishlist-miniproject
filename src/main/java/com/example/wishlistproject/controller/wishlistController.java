@@ -26,19 +26,20 @@ public class wishlistController {
         return "index";
     }
 
-    @PostMapping("/create")
+    @GetMapping("/createwish")
     public String createWish(Model model) {
         Wish wish = new Wish();
         model.addAttribute("wish", wish);
 
         model.addAttribute("wishlists", wishlistService.getWishLists());
+
         return "createWish";
     }
 
-    @GetMapping("/create")
+    @PostMapping("/createwish")
     public String createdWish(@ModelAttribute("wish") Wish wish) {
-      //   not working yet, need to create "addWish" method in wishListRepositoryDB  //  wishlistService.addWish(wish);
-        return "creation_success";
+        wishlistService.createWish(wish);
+        return "createWish";
     }
 
     @GetMapping("/createuser")
@@ -53,7 +54,6 @@ public class wishlistController {
         wishlistService.createUser(user);
         return "createUserSuccess";
     }
-
 
 
 }

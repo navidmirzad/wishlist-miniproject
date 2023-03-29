@@ -1,11 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create Wish</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
+
+<header>
+    <img src="your-logo-url" alt="Wishlist logo">
+    <h1>Wishlist</h1>
+</header>
+<main>
+    <form action="#" th:action="@{/wishlist/createwish}" method="post" th:object="${wish}">
+        <label>Wish name:</label>
+        <input type="text" th:field="*{wishName}" required /> <br/>
+
+        <label>Wish link:</label>
+        <input type="text" th:field="*{wishLink}" required /> <br/>
+
+        <label>Wish description:</label>
+        <input type="text" th:field="*{wishDescription}" required /> <br/>
+
+        <label>Wish price:</label>
+        <input type="text" th:field="*{wishPrice}" required /> <br/>
+
+        <label>Wish count:</label>
+        <input type="text" th:field="*{wishCount}" required /> <br/>
+
+        <label>List names:</label>
+        <select th:field="*{wishLists}" required />
+        <option th:each="l : ${wishlists}" th:value="${l}" th:text="${l}"> </option> <select/><br/>
+
+
+        <button type="submit" class="btn btn-dark">Register</button>
+
+        <input type="button" value="Back" onclick="history.back()">
+
+    </form>
+</main>
 
 </body>
 </html>

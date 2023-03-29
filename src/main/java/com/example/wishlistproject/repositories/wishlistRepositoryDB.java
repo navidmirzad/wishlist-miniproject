@@ -1,6 +1,7 @@
 package com.example.wishlistproject.repositories;
 
 import com.example.wishlistproject.model.User;
+import com.example.wishlistproject.model.Wish;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +28,7 @@ public class wishlistRepositoryDB {
     public List<String> getWishLists() {
         List<String> wishLists = new ArrayList<>();
 
-        try (Connection con = DriverManager.getConnection(db_url, uid, pwd)) {
+        try (Connection con = getConnection()) {
             String SQL = "SELECT listID, listName FROM wish_lists;";
             PreparedStatement preparedStatement = con.prepareStatement(SQL);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -43,7 +44,39 @@ public class wishlistRepositoryDB {
         return wishLists;
     }
 
-    // Need to create addWish that communicates with Controller
+    public void createWish(Wish wish) {
+
+        try (Connection con = getConnection()) {
+            // ID's
+            int listID = 0;
+
+            // find listID
+            String findListID = "select listID from wish_lists where listName = ?;";
+            PreparedStatement pstmt = con.prepareStatement(findListID);
+            pstmt.setString(1, wish.getWishName());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                listID = rs.getInt("listID");
+            }
+
+            String createWish = "insert into wishes (wishName, wishLink, wishDescription, wishPrice, wishCount, listID) "
+                    + "values(?, ?, ?, ?, ?, ?, ?);";
+
+            pstmt = con.prepareStatement(createWish, Statement.RETURN_GENERATED_KEYS); // return autoincremented keys
+            pstmt.setString(1, wish.getWishName());
+            pstmt.setString(2, wish.getWishLink());
+            pstmt.setString(3, wish.getWishDescription());
+            pstmt.setDouble(4, wish.getWishPrice());
+            pstmt.setInt(5, wish.getWishCount());
+            pstmt.setInt(6, listID);
+            pstmt.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void createUser(User user) {
 
