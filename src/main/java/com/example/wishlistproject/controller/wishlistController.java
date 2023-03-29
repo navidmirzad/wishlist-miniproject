@@ -20,6 +20,10 @@ public class wishlistController {
         this.wishlistService = wishlistService;
     }
 
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
 
     @PostMapping("/create")
     public String createWish(Model model) {
