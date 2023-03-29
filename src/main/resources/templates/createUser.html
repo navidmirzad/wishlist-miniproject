@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create user</title>
+</head>
+<body>
+
+<header>
+  <img src="your-logo-url" alt="Wishlist logo">
+  <h1>Wishlist</h1>
+</header>
+<main>
+  <form action="#" th:action="@{/wishlist/createuser}" method="post" th:object="${user}">
+    <label>Username:</label>
+    <input type="text" th:field="*{userName}" required /> <br/>
+
+    <label>Password:</label>
+    <input type="password" th:field="*{userPassword}" required /> <br/>
+
+    <label>First name:</label>
+    <input type="text" th:field="*{firstName}" required /> <br/>
+
+    <label>Last name:</label>
+    <input type="text" th:field="*{lastName}" required /> <br/>
+
+    <label>Birthdate:</label>
+    <input type="date" th:field="*{birthdate}" required /> <br/>
+
+    <label>Gender:</label>
+    <select th:field="*{gender}" required />
+      <option value="">Select</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+      <option value="O">Other</option>
+    </select> <br/>
+
+    <label>Email</label>
+    <input type="email" th:field="*{email}" required /> <br/>
+
+    <label>Phone Number:</label>
+    <input type="tel" th:field="*{phoneNumber}" required /> <br/>
+
+    <button type="submit">Create Account</button>
+    <input type="button" value="Back" onclick="history.back()">
+
+  </form>
+</main>
+
+</body>
+</html>

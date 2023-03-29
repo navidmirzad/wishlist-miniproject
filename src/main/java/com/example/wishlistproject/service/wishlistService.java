@@ -1,5 +1,6 @@
 package com.example.wishlistproject.service;
 
+import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.repositories.wishlistRepositoryDB;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ public class wishlistService {
 
     public List<String> getWishLists() {
         return wishlistRepositoryDB.getWishLists();
+    }
+
+    public void createUser(User user) {
+        wishlistRepositoryDB.createUser(user);
     }
 
     //addwish service redirect to wishRepositoryDB

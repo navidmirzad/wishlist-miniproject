@@ -25,6 +25,10 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User() {
+
+    }
+
     public int getUserID() {
         return userID;
     }

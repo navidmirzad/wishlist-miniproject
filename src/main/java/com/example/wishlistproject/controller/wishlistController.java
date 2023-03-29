@@ -1,5 +1,6 @@
 package com.example.wishlistproject.controller;
 
+import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.model.Wish;
 import com.example.wishlistproject.service.wishlistService;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/Wishlist")
+@RequestMapping("/wishlist")
 public class wishlistController {
 
     private wishlistService wishlistService;
@@ -18,8 +19,6 @@ public class wishlistController {
     public wishlistController(wishlistService wishlistService) {
         this.wishlistService = wishlistService;
     }
-
-
 
 
     @PostMapping("/create")
@@ -35,6 +34,19 @@ public class wishlistController {
     public String createdWish(@ModelAttribute("wish") Wish wish) {
       //   not working yet, need to create "addWish" method in wishListRepositoryDB  //  wishlistService.addWish(wish);
         return "creation_success";
+    }
+
+    @GetMapping("/createuser")
+    public String createUser(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "createUser";
+    }
+
+    @PostMapping("/createuser")
+    public String createdUser(@ModelAttribute("user") User user) {
+        wishlistService.createUser(user);
+        return "createUserSuccess";
     }
 
 }
