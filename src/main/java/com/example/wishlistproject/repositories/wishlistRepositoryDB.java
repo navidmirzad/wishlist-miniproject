@@ -1,6 +1,8 @@
 package com.example.wishlistproject.repositories;
 
+import com.example.wishlistproject.dto.WishDTO;
 import com.example.wishlistproject.model.User;
+import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.model.Wish;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -44,7 +46,7 @@ public class wishlistRepositoryDB {
         return wishLists;
     }
 
-    public void createWish(Wish wish) {
+    public void createWish(WishDTO wish) {
 
         try (Connection con = getConnection()) {
             // ID's
@@ -53,7 +55,7 @@ public class wishlistRepositoryDB {
             // find listID
             String findListID = "select listID from wish_lists where listName = ?;";
             PreparedStatement pstmt = con.prepareStatement(findListID);
-            pstmt.setString(1, wish.getWishName());
+            pstmt.setString(1, wish.getListName());
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -61,7 +63,7 @@ public class wishlistRepositoryDB {
             }
 
             String createWish = "insert into wishes (wishName, wishLink, wishDescription, wishPrice, wishCount, listID) "
-                    + "values(?, ?, ?, ?, ?, ?, ?);";
+                    + "values(?, ?, ?, ?, ?, ?);";
 
             pstmt = con.prepareStatement(createWish, Statement.RETURN_GENERATED_KEYS); // return autoincremented keys
             pstmt.setString(1, wish.getWishName());
@@ -101,5 +103,6 @@ public class wishlistRepositoryDB {
         }
 
     }
+
 
 }

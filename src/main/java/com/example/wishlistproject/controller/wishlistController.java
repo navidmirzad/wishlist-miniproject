@@ -1,15 +1,13 @@
 package com.example.wishlistproject.controller;
 
+import com.example.wishlistproject.dto.WishDTO;
 import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.model.Wish;
 import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.service.wishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/wishlist")
@@ -28,7 +26,7 @@ public class wishlistController {
 
     @GetMapping("/createwish")
     public String createWish(Model model) {
-        Wish wish = new Wish();
+        WishDTO wish = new WishDTO();
         model.addAttribute("wish", wish);
 
         model.addAttribute("wishlists", wishlistService.getWishLists());
@@ -37,10 +35,12 @@ public class wishlistController {
     }
 
     @PostMapping("/createwish")
-    public String createdWish(@ModelAttribute("wish") Wish wish) {
+    public String createdWish(@ModelAttribute("wish") WishDTO wish) {
         wishlistService.createWish(wish);
         return "createWish";
     }
+
+
 
     @GetMapping("/createuser")
     public String createUser(Model model) {
@@ -54,6 +54,7 @@ public class wishlistController {
         wishlistService.createUser(user);
         return "createUserSuccess";
     }
+
 
 
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Wish {
 
-    private String wishID;
+    private int wishID;
     private String wishName;
     private String wishLink;
     private String wishDescription;
@@ -13,7 +13,7 @@ public class Wish {
     private int listID;
     List<String> wishLists;
 
-    public Wish(String wishID, String wishName, String wishLink, String wishDescription,
+    public Wish(int wishID, String wishName, String wishLink, String wishDescription,
                 double wishPrice, int wishCount, int listID, List wishLists) {
         this.listID = listID;
         this.wishName = wishName;
@@ -29,7 +29,7 @@ public class Wish {
 
     }
 
-    public String getWishID() {
+    public int getWishID() {
         return wishID;
     }
 
@@ -61,7 +61,7 @@ public class Wish {
         return wishLists;
     }
 
-    public void setWishID(String wishID) {
+    public void setWishID(int wishID) {
         this.wishID = wishID;
     }
 

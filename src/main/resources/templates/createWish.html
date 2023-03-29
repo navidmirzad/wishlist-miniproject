@@ -29,8 +29,8 @@
         <input type="text" th:field="*{wishCount}" required /> <br/>
 
         <label>List names:</label>
-        <select th:field="*{wishLists}" required />
-        <option th:each="l : ${wishlists}" th:value="${l}" th:text="${l}"> </option> <select/><br/>
+        <select th:field="*{listName}" required />
+        <option th:each="listName : ${wishlists}" th:value="${listName}" th:text="${listName}"> </option> <select/><br/>
 
 
         <button type="submit" class="btn btn-dark">Register</button>
@@ -39,6 +39,8 @@
 
     </form>
 </main>
+
+
 
 </body>
 </html>
