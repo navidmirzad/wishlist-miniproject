@@ -19,6 +19,9 @@ public class wishlistController {
         this.wishlistService = wishlistService;
     }
 
+
+
+
     @PostMapping("/create")
     public String createWish(Model model) {
         Wish wish = new Wish();

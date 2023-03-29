@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Wishlist</title>
-    <link th:href="@{/main.css}" rel = "stylesheet">
+    <title>Wishlist Login</title>
+    <style>
+        body {
+            background-image: url("/images/money.jpg");
+            background-size: cover;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+        img {
+            height: 80%;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 100px);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0062cc;
+        }
+    </style>
 </head>
 <body>
-
+<header>
+    <img src="logo.png" alt="Wishlist logo">
+    <h1>Wishlist</h1>
+</header>
+<main>
+    <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <button type="submit">Login</button>
+        <button type="button">Create an account</button>
+    </form>
+</main>
 </body>
 </html>
