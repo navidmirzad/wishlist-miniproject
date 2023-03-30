@@ -39,7 +39,19 @@ public class wishlistController {
     @PostMapping("/createwish")
     public String createdWish(@ModelAttribute("wish") WishDTO wish) {
         wishlistService.createWish(wish);
-        return "createWish";
+        return "redirect:/wishlist/seewishes";
+    }
+
+    @GetMapping("/seewishes")
+    public String seeWishes(Model model) {
+        model.addAttribute("wishes", wishlistService.getWishes());
+        return "wishes";
+    }
+
+    @PostMapping("/deletewish")
+    public String deleteWish(@RequestParam("id") int id) {
+        wishlistService.deleteWish(id);
+        return "redirect:/wishlist/seewishes";
     }
 
     @GetMapping("/createuser")
@@ -70,6 +82,7 @@ public class wishlistController {
 
         return "SuccessSeeLists";
     }
+
 
 
 

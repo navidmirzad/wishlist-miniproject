@@ -20,13 +20,14 @@ phoneNumber INT NOT NULL
 CREATE TABLE wish_lists(
 listid INT PRIMARY KEY AUTO_INCREMENT,
 listName VARCHAR(255) NOT NULL,
+listImageURL VARCHAR(255) NOT NULL,
 userid INT,
 FOREIGN KEY (userid) REFERENCES users(userid)
 );
 
 CREATE TABLE wishes(
 wishid INT PRIMARY KEY AUTO_INCREMENT,
-wishName VARCHAR(255),
+wishName VARCHAR(255) UNIQUE,
 wishLink VARCHAR(255),
 wishImageURL VARCHAR(255),
 wishDescription VARCHAR(255),

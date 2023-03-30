@@ -12,6 +12,17 @@ public class WishDTO {
     private String listName;
     private int listID;
 
+    public WishDTO(int wishID, String wishName, String wishLink, String wishImageURL,
+                   String wishDescription, double wishPrice, int wishCount) {
+        this.wishID = wishID;
+        this.wishName = wishName;
+        this.wishLink = wishLink;
+        this.wishImageURL = wishImageURL;
+        this.wishDescription = wishDescription;
+        this.wishPrice = wishPrice;
+        this.wishCount = wishCount;
+    }
+
     public WishDTO() {
 
     }

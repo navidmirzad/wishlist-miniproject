@@ -27,12 +27,20 @@ public class wishlistService {
         wishlistRepositoryDB.createWish(wish);
     }
 
+    public void deleteWish(int id) {
+        wishlistRepositoryDB.deleteWish(id);
+    }
+
     public void createUser(User user) {
         wishlistRepositoryDB.createUser(user);
     }
 
     public void createWishlist(wishlistDTO wishlist) {
         wishlistRepositoryDB.createWishlist(wishlist);
+    }
+
+    public List<WishDTO> getWishes() {
+        return wishlistRepositoryDB.getWishes();
     }
 
 }
