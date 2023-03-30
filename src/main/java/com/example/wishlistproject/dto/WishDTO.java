@@ -5,6 +5,7 @@ public class WishDTO {
     private int wishID;
     private String wishName;
     private String wishLink;
+    private String wishImageURL;
     private String wishDescription;
     private double wishPrice;
     private int wishCount;
@@ -15,16 +16,21 @@ public class WishDTO {
 
     }
 
-    public WishDTO(int wishID, String wishName, String wishLink, String wishDescription,
+    public WishDTO(int wishID, String wishName, String wishLink, String wishImageURL, String wishDescription,
                    double wishPrice, int wishCount, String listName, int listID) {
         this.wishID = wishID;
         this.wishName = wishName;
         this.wishLink = wishLink;
+        this.wishImageURL = wishImageURL;
         this.wishDescription = wishDescription;
         this.wishPrice = wishPrice;
         this.wishCount = wishCount;
         this.listName = listName;
         this.listID = listID;
+    }
+
+    public String getWishImageURL() {
+        return wishImageURL;
     }
 
     public int getWishID() {
@@ -87,7 +93,26 @@ public class WishDTO {
         return listID;
     }
 
+    public void setWishImageURL(String wishImageURL) {
+        this.wishImageURL = wishImageURL;
+    }
+
     public void setListID(int listID) {
         this.listID = listID;
+    }
+
+    @Override
+    public String toString() {
+        return "WishDTO{" +
+                "wishID=" + wishID +
+                ", wishName='" + wishName + '\'' +
+                ", wishLink='" + wishLink + '\'' +
+                ", wishImageURL='" + wishImageURL + '\'' +
+                ", wishDescription='" + wishDescription + '\'' +
+                ", wishPrice=" + wishPrice +
+                ", wishCount=" + wishCount +
+                ", listName='" + listName + '\'' +
+                ", listID=" + listID +
+                '}';
     }
 }

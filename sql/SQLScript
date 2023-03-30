@@ -28,9 +28,17 @@ CREATE TABLE wishes(
 wishid INT PRIMARY KEY AUTO_INCREMENT,
 wishName VARCHAR(255),
 wishLink VARCHAR(255),
+wishImageURL VARCHAR(255),
 wishDescription VARCHAR(255),
 wishPrice INT,
 wishCount INT NOT NULL,
 listid INT,
 FOREIGN KEY (listid) REFERENCES wish_lists(listid)
+);
+
+CREATE TABLE Images(
+imageID INT PRIMARY KEY AUTO_INCREMENT,
+imageURL VARCHAR(255) NOT NULL,
+wishID int UNIQUE,
+FOREIGN KEY (wishID) REFERENCES wishes(wishID)
 );

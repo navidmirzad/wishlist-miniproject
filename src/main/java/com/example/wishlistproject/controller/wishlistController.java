@@ -8,6 +8,7 @@ import com.example.wishlistproject.service.wishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/wishlist")
@@ -40,8 +41,6 @@ public class wishlistController {
         return "createWish";
     }
 
-
-
     @GetMapping("/createuser")
     public String createUser(Model model) {
         User user = new User();
@@ -55,6 +54,11 @@ public class wishlistController {
         return "createUserSuccess";
     }
 
+    @PostMapping("/wishlist/createwish")
+    public String handleImageUpload(@RequestParam("imageFile") MultipartFile imageFile) {
+        // Handle the upload image file
+        return "redirect:/wishlist/";
+    }
 
 
 }

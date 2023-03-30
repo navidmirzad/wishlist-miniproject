@@ -7,26 +7,32 @@ public class Wish {
     private int wishID;
     private String wishName;
     private String wishLink;
+    private String wishImageURL;
     private String wishDescription;
     private double wishPrice;
     private int wishCount;
     private int listID;
     List<String> wishLists;
 
-    public Wish(int wishID, String wishName, String wishLink, String wishDescription,
-                double wishPrice, int wishCount, int listID, List wishLists) {
-        this.listID = listID;
+    public Wish(int wishID, String wishName, String wishLink, String wishImageURL, String wishDescription,
+                double wishPrice, int wishCount, int listID) {
+
+        this.wishID = wishID;
         this.wishName = wishName;
         this.wishLink = wishLink;
+        this.wishImageURL = wishImageURL;
         this.wishDescription = wishDescription;
         this.wishPrice = wishPrice;
         this.wishCount = wishCount;
         this.listID = listID;
-        this.wishLists = wishLists;
     }
 
     public Wish() {
 
+    }
+
+    public String getWishImageURL() {
+        return wishImageURL;
     }
 
     public int getWishID() {
@@ -93,12 +99,17 @@ public class Wish {
         this.wishLists = wishLists;
     }
 
+    public void setWishImageURL(String wishImageURL) {
+        this.wishImageURL = wishImageURL;
+    }
+
     @Override
     public String toString() {
         return "Wish{" +
-                "wishID='" + wishID + '\'' +
+                "wishID=" + wishID +
                 ", wishName='" + wishName + '\'' +
                 ", wishLink='" + wishLink + '\'' +
+                ", wishImageURL='" + wishImageURL + '\'' +
                 ", wishDescription='" + wishDescription + '\'' +
                 ", wishPrice=" + wishPrice +
                 ", wishCount=" + wishCount +

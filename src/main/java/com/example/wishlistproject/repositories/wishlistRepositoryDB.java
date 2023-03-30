@@ -62,16 +62,17 @@ public class wishlistRepositoryDB {
                 listID = rs.getInt("listID");
             }
 
-            String createWish = "insert into wishes (wishName, wishLink, wishDescription, wishPrice, wishCount, listID) "
-                    + "values(?, ?, ?, ?, ?, ?);";
+            String createWish = "insert into wishes (wishName, wishLink, wishImageURL, wishDescription, wishPrice, wishCount, listID) "
+                    + "values(?, ?, ?, ?, ?, ?, ?);";
 
             pstmt = con.prepareStatement(createWish, Statement.RETURN_GENERATED_KEYS); // return autoincremented keys
             pstmt.setString(1, wish.getWishName());
             pstmt.setString(2, wish.getWishLink());
-            pstmt.setString(3, wish.getWishDescription());
-            pstmt.setDouble(4, wish.getWishPrice());
-            pstmt.setInt(5, wish.getWishCount());
-            pstmt.setInt(6, listID);
+            pstmt.setString(3, wish.getWishImageURL());
+            pstmt.setString(4, wish.getWishDescription());
+            pstmt.setDouble(5, wish.getWishPrice());
+            pstmt.setInt(6, wish.getWishCount());
+            pstmt.setInt(7, listID);
             pstmt.executeUpdate();
 
 
