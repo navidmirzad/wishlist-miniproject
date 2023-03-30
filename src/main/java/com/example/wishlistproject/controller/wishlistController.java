@@ -71,6 +71,8 @@ public class wishlistController {
         return "SuccessSeeLists";
     }
 
+
+
   /*  @PostMapping("/wishlist/createwish")
     public String handleImageUpload(@RequestParam("imageFile") MultipartFile imageFile) {
         // Handle the upload image file
