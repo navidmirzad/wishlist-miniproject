@@ -123,5 +123,45 @@ public class wishlistRepositoryDB {
         }
     }
 
+    public List<WishDTO> getWishes() {
+
+        List<WishDTO> wishes = new ArrayList<>();
+
+        try (Connection con = getConnection()){
+            String sql = "SELECT wishid, wishname, wishlink, wishimageurl, wishdescription, wishprice, wishcount\n" +
+                    "FROM wishes";
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while(resultSet.next()) {
+
+                wishes.add(new WishDTO(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getDouble(6),
+                        resultSet.getInt(7)));
+
+            }
+            return wishes;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteWish(int id) {
+
+        try (Connection con = getConnection()){
+            String sql = "DELETE FROM wishes WHERE wishid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
