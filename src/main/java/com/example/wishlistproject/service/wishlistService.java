@@ -1,6 +1,7 @@
 package com.example.wishlistproject.service;
 
 import com.example.wishlistproject.dto.WishDTO;
+import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.model.Wish;
 import com.example.wishlistproject.model.Wishlist;
@@ -30,8 +31,8 @@ public class wishlistService {
         wishlistRepositoryDB.createUser(user);
     }
 
-
-    //addwish service redirect to wishRepositoryDB
-
+    public void createWishlist(wishlistDTO wishlist) {
+        wishlistRepositoryDB.createWishlist(wishlist);
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.example.wishlistproject.repositories;
 
 import com.example.wishlistproject.dto.WishDTO;
+import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.model.Wish;
@@ -103,6 +104,23 @@ public class wishlistRepositoryDB {
             e.printStackTrace();
         }
 
+    }
+
+    public void createWishlist(wishlistDTO wishlist) {
+
+        try (Connection con = getConnection()) {
+
+            String insertList = "INSERT INTO wish_lists(listName, listImageURL)\n" +
+                    "VALUES(?,?)";
+
+            PreparedStatement preparedStatement = con.prepareStatement(insertList);
+            preparedStatement.setString(1, wishlist.getListName());
+            preparedStatement.setString(2, wishlist.getListImageURL());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

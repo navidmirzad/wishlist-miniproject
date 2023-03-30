@@ -1,6 +1,7 @@
 package com.example.wishlistproject.controller;
 
 import com.example.wishlistproject.dto.WishDTO;
+import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.model.Wish;
 import com.example.wishlistproject.model.Wishlist;
@@ -54,11 +55,27 @@ public class wishlistController {
         return "createUserSuccess";
     }
 
-    @PostMapping("/wishlist/createwish")
+    @GetMapping("/createwishlist")
+    public String createWishlist(Model model) {
+        wishlistDTO wishlist = new wishlistDTO();
+        model.addAttribute("wishlist", wishlist);
+
+        return "createWishlist";
+    }
+
+    @PostMapping("/createwishlist")
+    public String createdWishlist(@ModelAttribute("wishlist") wishlistDTO wishlist, Model model) {
+        wishlistService.createWishlist(wishlist);
+        model.addAttribute("wishlists", wishlistService.getWishLists());
+
+        return "SuccessSeeLists";
+    }
+
+  /*  @PostMapping("/wishlist/createwish")
     public String handleImageUpload(@RequestParam("imageFile") MultipartFile imageFile) {
         // Handle the upload image file
         return "redirect:/wishlist/";
-    }
+    }*/
 
 
 }

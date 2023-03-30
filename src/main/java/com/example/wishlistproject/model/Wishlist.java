@@ -4,11 +4,13 @@ public class Wishlist {
 
     private int listID;
     private String listName;
+    private String listImageURL;
     private int userID;
 
-    public Wishlist(int listID, String listName, int userID) {
+    public Wishlist(int listID, String listName, String listImageURL, int userID) {
         this.listID = listID;
         this.listName = listName;
+        this.listImageURL = listImageURL;
         this.userID = userID;
     }
 
@@ -24,6 +26,10 @@ public class Wishlist {
         return listName;
     }
 
+    public String getListImageURL() {
+        return listImageURL;
+    }
+
     public int getUserID() {
         return userID;
     }
@@ -36,6 +42,10 @@ public class Wishlist {
         this.listName = listName;
     }
 
+    public void setListImageURL(String listImageURL) {
+        this.listImageURL = listImageURL;
+    }
+
     public void setUserID(int userID) {
         this.userID = userID;
     }
@@ -45,8 +55,8 @@ public class Wishlist {
         return "Wishlist{" +
                 "listID=" + listID +
                 ", listName='" + listName + '\'' +
+                ", listImageURL='" + listImageURL + '\'' +
                 ", userID=" + userID +
                 '}';
     }
-
 }

@@ -19,6 +19,9 @@
         <label>Wish link:</label>
         <input type="text" th:field="*{wishLink}" required /> <br/>
 
+        <label>Wish imageURL:</label>
+        <input type="text" th:field="*{wishImageURL}" required /> <br/>
+
         <label>Wish description:</label>
         <input type="text" th:field="*{wishDescription}" required /> <br/>
 
@@ -40,10 +43,10 @@
     </form>
 
                                     <!-- form to upload images   -->
-    <form method="POST" th:action="@{/wishlist/createwish}" enctype="multipart/form-data">
+    <!--<form method="POST" th:action="@{/wishlist/createwish}" enctype="multipart/form-data">
         <input type="file" name="imageFile">
         <button type="submit">Upload Image</button>
-    </form>
+    </form>-->
 </main>
 
 
