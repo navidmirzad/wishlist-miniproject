@@ -28,8 +28,8 @@ public class wishlistRepositoryDB {
         return DriverManager.getConnection(db_url,uid,pwd);
     }
 
-    public List<String> getWishLists() {
-        List<String> wishLists = new ArrayList<>();
+    public List<wishlistDTO> getWishLists() {
+        List<wishlistDTO> wishLists = new ArrayList<>();
 
         try (Connection con = getConnection()) {
             String SQL = "SELECT listID, listName FROM wish_lists;";
@@ -37,7 +37,9 @@ public class wishlistRepositoryDB {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                wishLists.add(resultSet.getString("listName"));
+
+                wishLists.add(new wishlistDTO(resultSet.getString(1),
+                        resultSet.getString(2)));
             }
 
         } catch (

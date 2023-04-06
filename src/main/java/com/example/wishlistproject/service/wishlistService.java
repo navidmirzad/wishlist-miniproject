@@ -19,10 +19,6 @@ public class wishlistService {
         this.wishlistRepositoryDB = wishlistRepositoryDB;
     }
 
-    public List<String> getWishLists() {
-        return wishlistRepositoryDB.getWishLists();
-    }
-
     public void createWish(WishDTO wish) {
         wishlistRepositoryDB.createWish(wish);
     }
@@ -41,6 +37,10 @@ public class wishlistService {
 
     public List<WishDTO> getWishes() {
         return wishlistRepositoryDB.getWishes();
+    }
+
+    public List<wishlistDTO> getWishlists() {
+        return wishlistRepositoryDB.getWishLists();
     }
 
 }

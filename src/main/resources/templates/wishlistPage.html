@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Wishlists</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:if="${#lists.isEmpty(wishlists)}">
+    <h2>No wishlists yet!</h2>
+
+    <td>
+        <a class="btn btn-primary" href="/wishlist/createwishlist">Create a new wishlist</a>
+    </td>
+</div>
+
+<div th:if="${not #lists.isEmpty(wishlists)}">
+    <h2>Your wishlists</h2>
+
+    <table class="table table-dark">
+        <table class="table">
+            <tr>
+                <th scope="col">List Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="wishlist : ${wishlists}">
+                <td th:text="${wishlist.listName}"></td>
+                <td th:text="${wishlist.listImageURL}"></td>
+            </tr>
+            </tbody>
+
+
+        </table>
+
+    </table>
+</div>
+
+</body>
+</html>

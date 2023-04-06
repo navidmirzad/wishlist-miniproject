@@ -31,7 +31,7 @@ public class wishlistController {
         WishDTO wish = new WishDTO();
         model.addAttribute("wish", wish);
 
-        model.addAttribute("wishlists", wishlistService.getWishLists());
+        model.addAttribute("wishlists", wishlistService.getWishlists());
 
         return "createWish";
     }
@@ -64,7 +64,13 @@ public class wishlistController {
     @PostMapping("/createuser")
     public String createdUser(@ModelAttribute("user") User user) {
         wishlistService.createUser(user);
-        return "createUserSuccess";
+        return "wishlistPage";
+    }
+
+    @GetMapping("/seewishlists")
+    public String seeWishlists(Model model) {
+        model.addAttribute("wishlists", wishlistService.getWishlists());
+        return "wishlistPage";
     }
 
     @GetMapping("/createwishlist")
@@ -75,12 +81,14 @@ public class wishlistController {
         return "createWishlist";
     }
 
+
+
     @PostMapping("/createwishlist")
     public String createdWishlist(@ModelAttribute("wishlist") wishlistDTO wishlist, Model model) {
         wishlistService.createWishlist(wishlist);
-        model.addAttribute("wishlists", wishlistService.getWishLists());
+        model.addAttribute("wishlists", wishlistService.getWishlists());
 
-        return "SuccessSeeLists";
+        return "wishlistPage";
     }
 
 
