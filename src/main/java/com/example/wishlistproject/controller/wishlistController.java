@@ -3,6 +3,7 @@ package com.example.wishlistproject.controller;
 import com.example.wishlistproject.dto.WishDTO;
 import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
+import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.service.wishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

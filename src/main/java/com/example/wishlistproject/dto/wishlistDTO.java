@@ -2,17 +2,12 @@ package com.example.wishlistproject.dto;
 
 public class wishlistDTO {
 
-    private String listID;
+    private int listID;
     private String listName;
     private String listImageURL;
 
-    public wishlistDTO(String listID, String listName, String listImageURL, String userID) {
+    public wishlistDTO(int listID, String listName, String listImageURL) {
         this.listID = listID;
-        this.listName = listName;
-        this.listImageURL = listImageURL;
-    }
-
-    public wishlistDTO(String listName, String listImageURL) {
         this.listName = listName;
         this.listImageURL = listImageURL;
     }
@@ -37,11 +32,11 @@ public class wishlistDTO {
         this.listImageURL = listImageURL;
     }
 
-    public String getListID() {
+    public int getListID() {
         return listID;
     }
 
-    public void setListID(String listID) {
+    public void setListID(int listID) {
         this.listID = listID;
     }
 

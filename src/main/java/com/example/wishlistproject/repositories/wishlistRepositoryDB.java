@@ -30,15 +30,16 @@ public class wishlistRepositoryDB {
         List<wishlistDTO> wishLists = new ArrayList<>();
 
         try (Connection con = getConnection()) {
-            String sql = "SELECT listName, listImageURL FROM wish_lists;";
+            String sql = "SELECT listID, listName, listImageURL FROM wish_lists;";
             Statement statement =con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
 
-                wishLists.add(new wishlistDTO(resultSet.getString(1),
-                        resultSet.getString(2)));
+                wishLists.add(new wishlistDTO(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3)));
             }
+
             return wishLists;
         } catch (
                 SQLException e) {
