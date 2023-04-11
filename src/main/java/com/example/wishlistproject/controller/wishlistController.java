@@ -3,13 +3,10 @@ package com.example.wishlistproject.controller;
 import com.example.wishlistproject.dto.WishDTO;
 import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
-import com.example.wishlistproject.model.Wish;
-import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.service.wishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/wishlist")
@@ -64,13 +61,13 @@ public class wishlistController {
     @PostMapping("/createuser")
     public String createdUser(@ModelAttribute("user") User user) {
         wishlistService.createUser(user);
-        return "wishlistPage";
+        return "redirect:/wishlist/seewishlists";
     }
 
     @GetMapping("/seewishlists")
     public String seeWishlists(Model model) {
         model.addAttribute("wishlists", wishlistService.getWishlists());
-        return "wishlistPage";
+        return "wishlists";
     }
 
     @GetMapping("/createwishlist")
@@ -81,14 +78,17 @@ public class wishlistController {
         return "createWishlist";
     }
 
-
-
     @PostMapping("/createwishlist")
     public String createdWishlist(@ModelAttribute("wishlist") wishlistDTO wishlist, Model model) {
         wishlistService.createWishlist(wishlist);
-        model.addAttribute("wishlists", wishlistService.getWishlists());
 
-        return "wishlistPage";
+        return "redirect:/wishlist/seewishlists";
+    }
+
+    @PostMapping("/deletewishlist")
+    public String deleteWishlist(@RequestParam("id") int id) {
+        wishlistService.deleteWishlist(id);
+        return "redirect:/wishlist/seewishlists";
     }
 
 

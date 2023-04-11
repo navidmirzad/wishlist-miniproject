@@ -3,8 +3,6 @@ package com.example.wishlistproject.repositories;
 import com.example.wishlistproject.dto.WishDTO;
 import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
-import com.example.wishlistproject.model.Wishlist;
-import com.example.wishlistproject.model.Wish;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -28,25 +26,24 @@ public class wishlistRepositoryDB {
         return DriverManager.getConnection(db_url,uid,pwd);
     }
 
-    public List<wishlistDTO> getWishLists() {
+    public List<wishlistDTO> getWishlists() {
         List<wishlistDTO> wishLists = new ArrayList<>();
 
         try (Connection con = getConnection()) {
-            String SQL = "SELECT listID, listName FROM wish_lists;";
-            PreparedStatement preparedStatement = con.prepareStatement(SQL);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            String sql = "SELECT listName, listImageURL FROM wish_lists;";
+            Statement statement =con.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
 
                 wishLists.add(new wishlistDTO(resultSet.getString(1),
                         resultSet.getString(2)));
             }
-
+            return wishLists;
         } catch (
                 SQLException e) {
             throw new RuntimeException(e);
         }
-        return wishLists;
     }
 
     public void createWish(WishDTO wish) {
@@ -77,7 +74,6 @@ public class wishlistRepositoryDB {
             pstmt.setInt(6, wish.getWishCount());
             pstmt.setInt(7, listID);
             pstmt.executeUpdate();
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -156,6 +152,19 @@ public class wishlistRepositoryDB {
 
         try (Connection con = getConnection()){
             String sql = "DELETE FROM wishes WHERE wishid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void deleteWishlist(int id) {
+
+        try (Connection con = getConnection()){
+            String sql = "DELETE FROM wish_lists WHERE listid = ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setInt(1,id);
             preparedStatement.execute();

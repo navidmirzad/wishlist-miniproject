@@ -20,9 +20,9 @@
     <label>Wishlist Image URL:</label>
     <input type="text" th:field="*{listImageURL}" required /> <br/>
 
-    <button type="submit" class="btn btn-dark">Register</button>
-
-    <input type="button" value="Back" onclick="history.back()">
+    <form th:action="@{/wishlist/createwishlist}" method="post" th:object="${wishlist}">
+      <button type="submit" class="btn btn-primary">Create Wishlist</button>
+    </form>
 
   </form>
 </main>

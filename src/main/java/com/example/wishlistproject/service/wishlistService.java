@@ -3,8 +3,6 @@ package com.example.wishlistproject.service;
 import com.example.wishlistproject.dto.WishDTO;
 import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
-import com.example.wishlistproject.model.Wish;
-import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.repositories.wishlistRepositoryDB;
 import org.springframework.stereotype.Service;
 
@@ -35,12 +33,16 @@ public class wishlistService {
         wishlistRepositoryDB.createWishlist(wishlist);
     }
 
+    public void deleteWishlist(int id) {
+        wishlistRepositoryDB.deleteWishlist(id);
+    }
+
     public List<WishDTO> getWishes() {
         return wishlistRepositoryDB.getWishes();
     }
 
     public List<wishlistDTO> getWishlists() {
-        return wishlistRepositoryDB.getWishLists();
+        return wishlistRepositoryDB.getWishlists();
     }
 
 }
