@@ -163,5 +163,31 @@ public class wishlistRepositoryDB {
 
     }
 
+    public boolean checkLogin(String username, String password) {
+
+        try (Connection con = getConnection()) {
+            String sql = "SELECT * FROM users WHERE userName = ? AND userPassword = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+
+            String uid = null;
+            String pwd = null;
+
+            if (rs.next()) {
+                uid = rs.getString("userName");
+                pwd = rs.getString("userPassword");
+            }
+
+            if (uid.equals(username) && (pwd.equals(password))) {
+                return true;
+            } else return false;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

@@ -83,14 +83,20 @@ public class wishlistController {
         return "SuccessSeeLists";
     }
 
+    @GetMapping("/SuccessSeeLists")
+    public String seeWishlists() {
+        return "SuccessSeeLists";
+    }
 
+    @PostMapping("/validateLogin")
+    public String validateLogin(@RequestParam("username") String u, @RequestParam("password") String p) {
+        boolean login = wishlistService.checkLogin(u, p);
 
+        System.out.println(login);
+        // ? means if true - : means if else
+        return (login) ? "redirect:/wishlist/SuccessSeeLists" : "redirect:/wishlist/index/";
+    }
 
-  /*  @PostMapping("/wishlist/createwish")
-    public String handleImageUpload(@RequestParam("imageFile") MultipartFile imageFile) {
-        // Handle the upload image file
-        return "redirect:/wishlist/";
-    }*/
 
 
 }
