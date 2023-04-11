@@ -10,7 +10,6 @@
 <table class="table table-dark">
   <thead>
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Name</th>
       <th scope="col">Link</th>
       <th scope="col">Image URL</th>
@@ -18,18 +17,22 @@
       <th scope="col">Price</th>
       <th scope="col">Count</th>
       <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
 
   <tbody>
   <tr th:each="wish : ${wishes}">
-    <td th:text="${wish.wishID}"></td>
     <td th:text="${wish.wishName}"></td>
     <td th:text="${wish.wishLink}"></td>
     <td th:text="${wish.wishImageURL}"></td>
     <td th:text="${wish.wishDescription}"></td>
     <td th:text="${wish.wishPrice}"></td>
     <td th:text="${wish.wishCount}"></td>
+
+    <td>
+      <a th:href="@{/wishlist/edit/wish/{id}(id=${wish.wishID})}" class="btn btn-warning">Edit</a>
+    </td>
 
     <td>
       <form action="#" th:action="@{/wishlist/deletewish}" method="post">
