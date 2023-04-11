@@ -182,8 +182,21 @@ public class wishlistRepositoryDB {
 
         try (Connection con = getConnection()) {
 
+            // ID's
+            int listID = 0;
+
+            // find listID
+            String findListID = "select listID from wish_lists where listName = ?;";
+            PreparedStatement pstmt = con.prepareStatement(findListID);
+            pstmt.setString(1, editedWish.getListName());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                listID = rs.getInt("listID");
+            }
+
             //find wish and set it to editedWish
-            String sql = "UPDATE wishes SET wishName = ?, wishLink = ?, wishimageURL = ?, wishDescription = ?, wishPrice = ?, wishCount = ? WHERE wishid = ?";
+            String sql = "UPDATE wishes SET wishName = ?, wishLink = ?, wishimageURL = ?, wishDescription = ?, wishPrice = ?, wishCount = ?, listid = ? WHERE wishid = ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setString(1,editedWish.getWishName());
             preparedStatement.setString(2,editedWish.getWishLink());
@@ -191,7 +204,8 @@ public class wishlistRepositoryDB {
             preparedStatement.setString(4, editedWish.getWishDescription());
             preparedStatement.setDouble(5, editedWish.getWishPrice());
             preparedStatement.setInt(6, editedWish.getWishCount());
-            preparedStatement.setInt(7, id);
+            preparedStatement.setInt(7, listID);
+            preparedStatement.setInt(8, id);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Update failed");
