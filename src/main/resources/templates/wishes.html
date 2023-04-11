@@ -27,7 +27,8 @@
         <td th:text="${wish.wishID}"></td>
         <td th:text="${wish.wishName}"></td>
         <td th:text="${wish.wishLink}"></td>
-        <td th:text="${wish.wishImageURL}"></td>
+        <td><img th:src="${wish.wishImageURL}" alt="Wishlist image"
+                 style="max-width: 100%; max-height: 100px;"></td>
         <td th:text="${wish.wishDescription}"></td>
         <td th:text="${wish.wishPrice}"></td>
         <td th:text="${wish.wishCount}"></td>
@@ -40,6 +41,10 @@
         </td>
 
     </tr>
+    <td>
+        <a th:href="@{/wishlist/createwish}" class="btn btn-dark">Create
+            wish</a>
+    </td>
     </tbody>
 </table>
 
