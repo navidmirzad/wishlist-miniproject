@@ -6,6 +6,7 @@ import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.model.Wish;
 import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.repositories.wishlistRepositoryDB;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,5 +47,10 @@ public class wishlistService {
     public boolean checkLogin(String username, String password) {
         return wishlistRepositoryDB.checkLogin(username, password);
     }
+
+    public User getUser(String uid) {
+       return wishlistRepositoryDB.getUser(uid);
+    }
+
 
 }

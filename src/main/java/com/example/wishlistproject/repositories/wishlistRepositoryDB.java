@@ -172,6 +172,8 @@ public class wishlistRepositoryDB {
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
 
+            System.out.println("inde i checkLogin");
+
             String uid = null;
             String pwd = null;
 
@@ -187,6 +189,26 @@ public class wishlistRepositoryDB {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public User getUser(String uid) {
+        User user = new User();
+
+        try (Connection con = getConnection()) {
+            String SQL = "SELECT userName from users";
+            PreparedStatement preparedStatement = con.prepareStatement(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            System.out.println("inde i getUser");
+
+            if (user.equals(uid)) {
+                return user;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
 

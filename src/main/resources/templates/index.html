@@ -72,14 +72,15 @@
     <h1>Wishlist</h1>
 </header>
 <main>
-    <form action="#" th:action="@{/wishlist/validateLogin}" method="POST">
+    <form action="/index"  method="POST">
+        <p th:if="${wrongLoginInfo}" class="error">Wrong username or password</p>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username">
         <label for="password">Password:</label>
         <input type="password" id="password" name="password">
         <button type="submit">Login</button> <br/>
         <a th:href="@{/wishlist/createuser}" class="btn-btn-dark">Create account</a>
-    </form>
+    </form><!---->
 </main>
 </body>
 </html>
