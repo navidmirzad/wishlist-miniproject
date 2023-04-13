@@ -32,6 +32,14 @@ public class wishlistService {
         wishlistRepositoryDB.deleteWish(id);
     }
 
+    public WishDTO findWishById(int id) {
+        return wishlistRepositoryDB.findWishById(id);
+    }
+
+    public void editWish(int id, WishDTO editedWish) {
+        wishlistRepositoryDB.editWish(id, editedWish);
+    }
+
     public void createUser(User user) {
         wishlistRepositoryDB.createUser(user);
     }

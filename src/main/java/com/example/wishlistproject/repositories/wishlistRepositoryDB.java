@@ -150,6 +150,71 @@ public class wishlistRepositoryDB {
         }
     }
 
+    public WishDTO findWishById(int id) {
+
+        WishDTO wish = null;
+
+        try(Connection con = getConnection()) {
+           String sql = "SELECT * FROM wishes WHERE wishid = ?";
+           PreparedStatement preparedStatement = con.prepareStatement(sql);
+           preparedStatement.setInt(1,id);
+           ResultSet resultSet = preparedStatement.executeQuery();
+
+           if (resultSet.next()) {
+               wish = new WishDTO();
+               wish.setWishID(resultSet.getInt("wishid"));
+               wish.setWishName(resultSet.getString("wishName"));
+               wish.setWishLink(resultSet.getString("wishLink"));
+               wish.setWishImageURL(resultSet.getString("wishImageURL"));
+               wish.setWishDescription(resultSet.getString("wishDescription"));
+               wish.setWishPrice(resultSet.getInt("wishPrice"));
+               wish.setWishCount(resultSet.getInt("wishCount"));
+               wish.setListID(resultSet.getInt("listId"));
+           }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return wish;
+    }
+
+    public void editWish(int id, WishDTO editedWish) {
+
+
+        try (Connection con = getConnection()) {
+
+            // ID's
+            int listID = 0;
+
+            // find listID
+            String findListID = "select listID from wish_lists where listName = ?;";
+            PreparedStatement pstmt = con.prepareStatement(findListID);
+            pstmt.setString(1, editedWish.getListName());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                listID = rs.getInt("listID");
+            }
+
+            //find wish and set it to editedWish
+            String sql = "UPDATE wishes SET wishName = ?, wishLink = ?, wishimageURL = ?, wishDescription = ?, wishPrice = ?, wishCount = ?, listid = ? WHERE wishid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1,editedWish.getWishName());
+            preparedStatement.setString(2,editedWish.getWishLink());
+            preparedStatement.setString(3,editedWish.getWishImageURL());
+            preparedStatement.setString(4, editedWish.getWishDescription());
+            preparedStatement.setDouble(5, editedWish.getWishPrice());
+            preparedStatement.setInt(6, editedWish.getWishCount());
+            preparedStatement.setInt(7, listID);
+            preparedStatement.setInt(8, id);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Update failed");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteWish(int id) {
 
         try (Connection con = getConnection()){

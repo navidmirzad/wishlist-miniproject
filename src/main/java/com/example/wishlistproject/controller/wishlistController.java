@@ -91,6 +91,20 @@ public class wishlistController {
 
     }
 
+    @GetMapping("/edit/wish/{id}")
+    public String editWish(@PathVariable int id, Model model) {
+        WishDTO wish = wishlistService.findWishById(id);
+        model.addAttribute("wish", wish);
+        model.addAttribute("wishlists", wishlistService.getWishLists());
+        return "editWish";
+    }
+
+    @PostMapping("/edit/wish/{id}")
+    public String editedWish(@PathVariable int id, @ModelAttribute WishDTO editedWish) {
+        wishlistService.editWish(id, editedWish);
+        return "redirect:/wishlist/seewishes";
+    }
+
     @GetMapping("/createuser")
     public String createUser(Model model) {
         User user = new User();
