@@ -22,14 +22,6 @@
     </tr>
     </thead>
 
-  <tbody>
-  <tr th:each="wish : ${wishes}">
-    <td th:text="${wish.wishName}"></td>
-    <td th:text="${wish.wishLink}"></td>
-    <td th:text="${wish.wishImageURL}"></td>
-    <td th:text="${wish.wishDescription}"></td>
-    <td th:text="${wish.wishPrice}"></td>
-    <td th:text="${wish.wishCount}"></td>
     <tbody>
     <tr th:each="wish : ${wishes}">
         <td th:text="${wish.wishID}"></td>

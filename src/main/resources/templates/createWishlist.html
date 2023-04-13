@@ -20,11 +20,11 @@
     <label>Wishlist Image URL:</label>
     <input type="text" th:field="*{listImageURL}" required /> <br/>
 
-    <button type="submit" class="btn btn-dark">Register</button>
 
     <a th:href="@{/wishlist/frontpage}" class="btn btn-dark">Go to homepage</a>
+
     <form th:action="@{/wishlist/createwishlist}" method="post" th:object="${wishlist}">
-      <button type="submit" class="btn btn-primary">Create Wishlist</button>
+      <button type="submit" class="btn btn-dark">Create Wishlist</button>
     </form>
 
 

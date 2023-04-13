@@ -69,7 +69,7 @@ public class wishlistController {
         WishDTO wish = new WishDTO();
         model.addAttribute("wish", wish);
 
-        model.addAttribute("wishlists", wishlistService.getWishLists());
+        model.addAttribute("wishlists", wishlistService.getWishlists());
         return isLoggedIn(session) ? "createWish" : "index";
     }
 
@@ -96,7 +96,7 @@ public class wishlistController {
     public String editWish(@PathVariable int id, Model model) {
         WishDTO wish = wishlistService.findWishById(id);
         model.addAttribute("wish", wish);
-        model.addAttribute("wishlists", wishlistService.getWishLists());
+        model.addAttribute("wishlists", wishlistService.getWishlists());
         return "editWish";
     }
 

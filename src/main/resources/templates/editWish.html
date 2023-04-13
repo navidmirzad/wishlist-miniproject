@@ -33,7 +33,7 @@
 
     <label>List names:</label>
     <select th:field="*{listName}" required />
-    <option th:each="listName : ${wishlists}" th:value="${listName}" th:text="${listName}"> </option> <select/><br/>
+    <option th:each="listName : ${wishlists}" th:value="${listName.listName}" th:text="${listName.listName}"> </option> <select/><br/>
 
 
     <button type="submit" class="btn btn-dark">Edit</button>
