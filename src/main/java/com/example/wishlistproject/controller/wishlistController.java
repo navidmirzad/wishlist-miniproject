@@ -62,7 +62,7 @@ public class wishlistController {
         model.addAttribute("wish", wish);
 
         model.addAttribute("wishlists", wishlistService.getWishLists());
-        return "createWish";
+        return isLoggedIn(session) ? "createWish" : "index";
     }
 
     @PostMapping("/createwish")
@@ -72,9 +72,9 @@ public class wishlistController {
     }
 
     @GetMapping("/seewishes")
-    public String seeWishes(Model model) {
+    public String seeWishes(Model model, HttpSession session) {
         model.addAttribute("wishes", wishlistService.getWishes());
-        return "wishes";
+        return isLoggedIn(session) ? "wishes" : "index";
     }
 
     @PostMapping("/deletewish")
@@ -98,11 +98,11 @@ public class wishlistController {
     }
 
     @GetMapping("/createwishlist")
-    public String createWishlist(Model model) {
+    public String createWishlist(Model model, HttpSession session) {
         wishlistDTO wishlist = new wishlistDTO();
         model.addAttribute("wishlist", wishlist);
 
-        return"createWishlist";
+        return isLoggedIn(session) ? "createWishlist" : "index";
     }
 
     @PostMapping("/createwishlist")
@@ -118,6 +118,5 @@ public class wishlistController {
     public String seeWishlists(HttpSession session) {
         return isLoggedIn(session) ? "SuccessSeeLists" : "index";
     }
-
 
 }
