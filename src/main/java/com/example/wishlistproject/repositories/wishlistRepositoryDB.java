@@ -3,6 +3,7 @@ package com.example.wishlistproject.repositories;
 import com.example.wishlistproject.dto.WishDTO;
 import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -26,13 +27,16 @@ public class wishlistRepositoryDB {
         return DriverManager.getConnection(db_url,uid,pwd);
     }
 
-    public List<wishlistDTO> getWishlists() {
+    public List<wishlistDTO> getWishlists(int id) {
         List<wishlistDTO> wishLists = new ArrayList<>();
 
         try (Connection con = getConnection()) {
-            String sql = "SELECT listID, listName, listImageURL FROM wish_lists;";
-            Statement statement =con.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+
+
+            String sql = "SELECT listID, listName, listImageURL, userid FROM wish_lists WHERE userid = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
 
@@ -105,16 +109,17 @@ public class wishlistRepositoryDB {
 
     }
 
-    public void createWishlist(wishlistDTO wishlist) {
+    public void createWishlist(int id, wishlistDTO wishlist) {
 
         try (Connection con = getConnection()) {
 
-            String insertList = "INSERT INTO wish_lists(listName, listImageURL)\n" +
-                    "VALUES(?,?)";
+            String insertList = "INSERT INTO wish_lists (listName, listImageURL, userid) \n" +
+                    "VALUES(?, ?, ?)";
 
             PreparedStatement preparedStatement = con.prepareStatement(insertList);
             preparedStatement.setString(1, wishlist.getListName());
             preparedStatement.setString(2, wishlist.getListImageURL());
+            preparedStatement.setInt(3, id);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -274,17 +279,18 @@ public class wishlistRepositoryDB {
        // User user = new User();
 
         try (Connection con = getConnection()) {
-            String SQL = "SELECT userName, userPassword from users where userName = ?";
+            String SQL = "SELECT userid, userName, userPassword from users where userName = ?";
             PreparedStatement preparedStatement = con.prepareStatement(SQL);
             preparedStatement.setString(1, userName);
             ResultSet resultSet = preparedStatement.executeQuery();
 
 
             if (resultSet.next()) {
+                int userID = resultSet.getInt("userid");
                 String userName1 = resultSet.getString("userName");
                 String userPassword1 = resultSet.getString("userPassword");
                 if (userName1.equals(userName)) {
-                    return new User(userName1, userPassword1);
+                    return new User(userID,userName1,userPassword1);
                 }
             }
 

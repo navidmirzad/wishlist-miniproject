@@ -40,8 +40,8 @@ public class wishlistService {
         wishlistRepositoryDB.createUser(user);
     }
 
-    public void createWishlist(wishlistDTO wishlist) {
-        wishlistRepositoryDB.createWishlist(wishlist);
+    public void createWishlist(int id, wishlistDTO wishlist) {
+        wishlistRepositoryDB.createWishlist(id, wishlist);
     }
 
     public List<WishDTO> getWishes() {
@@ -59,8 +59,8 @@ public class wishlistService {
     public void deleteWishlist(int id) {
         wishlistRepositoryDB.deleteWishlist(id);
     }
-    public List<wishlistDTO> getWishlists() {
-        return wishlistRepositoryDB.getWishlists();
+    public List<wishlistDTO> getWishlists(int id) {
+        return wishlistRepositoryDB.getWishlists(id);
     }
 
 }

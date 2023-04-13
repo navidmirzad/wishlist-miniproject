@@ -6,6 +6,7 @@ import com.example.wishlistproject.model.User;
 import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.service.wishlistService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,17 +46,15 @@ public class wishlistController {
     {
         // find user in repo - return loggedIn if succes
         User user = wishlistService.getUser(userName);
-        System.out.println(user);
         if (user != null)
             if (user.getUserPassword().equals(userPassword)) {
                 // create session for user and set session timeout to 30 sec (container default: 15 min)
                 session.setAttribute("user", user);
-                session.setMaxInactiveInterval(30);
+                session.setMaxInactiveInterval(300);
                 return "frontpage";
             }
         // wrong login info
         model.addAttribute("wrongLoginInfo", true);
-        System.out.println("wrong login");
         return "index";
     }
 
@@ -67,9 +66,10 @@ public class wishlistController {
     @GetMapping("/createwish")
     public String createWish(Model model, HttpSession session) {
         WishDTO wish = new WishDTO();
-        model.addAttribute("wish", wish);
+        User user = (User) session.getAttribute("user");
 
-        model.addAttribute("wishlists", wishlistService.getWishlists());
+        model.addAttribute("wish", wish);
+        model.addAttribute("wishlists", wishlistService.getWishlists(user.getUserID()));
         return isLoggedIn(session) ? "createWish" : "index";
     }
 
@@ -93,10 +93,12 @@ public class wishlistController {
     }
 
     @GetMapping("/edit/wish/{id}")
-    public String editWish(@PathVariable int id, Model model) {
-        WishDTO wish = wishlistService.findWishById(id);
+    public String editWish(@PathVariable int wishid, Model model, HttpSession session) {
+        WishDTO wish = wishlistService.findWishById(wishid);
+        User user = (User) session.getAttribute("user");
+        int id = user.getUserID();
         model.addAttribute("wish", wish);
-        model.addAttribute("wishlists", wishlistService.getWishlists());
+        model.addAttribute("wishlists", wishlistService.getWishlists(id));
         return "editWish";
     }
 
@@ -120,9 +122,14 @@ public class wishlistController {
     }
 
     @GetMapping("/seewishlists")
-    public String seeWishlists(Model model) {
-        model.addAttribute("wishlists", wishlistService.getWishlists());
-        return "wishlists";
+    public String seeWishlists(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("wishlists", wishlistService.getWishlists(user.getUserID()));
+            return "wishlists";
+        } else {
+            return "redirect:/wishlist/frontpage";
+        }
     }
 
     @GetMapping("/createwishlist")
@@ -135,10 +142,14 @@ public class wishlistController {
 
     @PostMapping("/createwishlist")
     public String createdWishlist(@ModelAttribute("wishlist") wishlistDTO wishlist,
-                                  Model model) {
-        wishlistService.createWishlist(wishlist);
-
-        return "redirect:/wishlist/seewishlists";
+                                  HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            wishlistService.createWishlist(user.getUserID(), wishlist);
+            return "redirect:/wishlist/seewishlists";
+        } else {
+            return "redirect:/wishlist/createWishlist";
+        }
     }
 
     @PostMapping("/deletewishlist")

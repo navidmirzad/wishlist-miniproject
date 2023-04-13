@@ -25,7 +25,8 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String userName, String userPassword) {
+    public User(int userID, String userName, String userPassword) {
+        this.userID = userID;
         this.userName = userName;
         this.userPassword = userPassword;
     }
