@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Wishlist Frontpage</title>
-    <link href="frontpage.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
@@ -11,16 +11,108 @@
           integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <style>
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        body
+        {
+            font-family: 'Oxygen', sans-serif;
+            background-color: #ededed ;
+        }
+
+        .main
+        {
+            height: 100vh;
+            width: 100%;
+            background-image: url(/images/blå.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .footer {
+            padding: 40px 0;
+            background-color: lightgray;
+        }
+
+        .footer .social {
+            text-align: center;
+            padding-bottom: 25px;
+            color: dodgerblue;
+        }
+
+        .footer .social a {
+            font-size: 24px;
+            color: inherit;
+            border: 1px solid #ccc;
+            width: 40px;
+            height: 40px;
+            line-height: 38px;
+            display: inline-block;
+            text-align: center;
+            border-radius: 50%;
+            margin: 0 8px;
+            opacity: 90%;
+        }
+
+        .footer .social a:hover {
+            opacity: 120%;
+        }
+
+        .footer ul {
+            margin-top: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .footer ul li a {
+            color: inherit;;
+            text-decoration: none;
+            opacity: 80%;
+        }
+
+        .footer ul li {
+            display: inline-block;
+            padding: 0 15px;
+        }
+
+
+        .footer .copyright {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .footer p {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+    </style>
+
 </head>
 <body>
 
 <div class="main">
     <nav>
-        <h2 class="logo">Portfolio</h2>
+        <h2 class="logo">Wishlist</h2>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About me</a></li>
-            <li><a href="#">Contact me</a></li>
+            <li><a href="/wishlist/frontpage">Home</a></li>
+            <li><a href="/wishlist/createwishlist">Create a wishlist</a></li>
+            <li><a href="/wishlist/createwish">Create a wish</a></li>
+            <li><a href="/wishlist/seewishes">See wishes</a></li>
+            <li><a href="/wishlist/logout">Log out</a></li>
+
+            <li><a href="#">Contact us</a></li>
         </ul>
     </nav>
 
@@ -58,9 +150,9 @@
         Navid Mirzad <br>
         2023
     </p>
-    <p>MathiasWulff@hotmail.com</p>
-    <p>EnesKocer@hotmail.com</p>
-    <p>navidmirzad@hotmail.com</p>
+    <p>math92n4@stud.kea.dk</p>
+    <p>enes0539@stud.kea.dk</p>
+    <p>navi0221@stud.kea.dk</p>
 </section>
 
 </body>
