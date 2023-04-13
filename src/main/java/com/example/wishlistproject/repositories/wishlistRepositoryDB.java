@@ -164,11 +164,15 @@ public class wishlistRepositoryDB {
 
     public void deleteWishlist(int id) {
 
-        try (Connection con = getConnection()){
-            String sql = "DELETE FROM wish_lists WHERE listid = ?";
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
-            preparedStatement.setInt(1,id);
-            preparedStatement.execute();
+        try (Connection conn = getConnection()){
+            try (PreparedStatement pstmt1 = conn.prepareStatement("DELETE FROM wishes WHERE listid = ?")) {
+                pstmt1.setInt(1,id);
+                pstmt1.execute();
+            }
+            try (PreparedStatement pstmt2 = conn.prepareStatement("DELETE FROM wish_lists WHERE listid = ?")){
+                pstmt2.setInt(1,id);
+                pstmt2.execute();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
