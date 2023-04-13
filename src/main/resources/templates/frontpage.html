@@ -11,7 +11,7 @@
           integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <style>
+    <!--<style>
 
         * {
             margin: 0px;
@@ -97,12 +97,38 @@
             font-size: 15px;
         }
 
-    </style>
+    </style>-->
 
 </head>
 <body>
 
-<div class="main">
+<div class="container">
+    <div class="logo">
+        <a href="index.html">
+            <img src="/images/logo.jpg" alt="" width="160" />
+        </a>
+    </div>
+    <nav>
+        <ul>
+            <a href="/wishlist/frontpage"><li>Home</li></a>
+            <a href="/wishlist/createwishlist"><li>Create Wishlist</li></a>
+            <a href="/wishlist/createwish"><li>Create Wish</li></a>
+            <a href="/wishlist/seewishlists"><li>See Wishlists</li></a>
+            <a href="/wishlist/edit/account/"><li>Account</li></a>
+            <a href="#"><li>About Us</li></a>
+            <a href="/wishlist/logout"><li>Logout</li></a>
+
+        </ul>
+    </nav>
+</div>
+<hr />
+
+<div class="frontpagePicture">
+    <img src="/images/money.jpg" alt="FBGM">
+
+</div>
+
+<!--<div class="main">
     <nav>
         <h2 class="logo">Wishlist</h2>
         <ul>
@@ -110,7 +136,7 @@
             <li><a href="/wishlist/createwishlist">Create a wishlist</a></li>
             <li><a href="/wishlist/createwish">Create a wish</a></li>
             <li><a href="/wishlist/seewishlists">See wishlists</a></li>
-            <li><a href="/wishlist/edit/account/">Account</a></li>   <!-- TODO: create editAccount endpoint + editAccount in repositoryDB -->
+            <li><a href="/wishlist/edit/account/">Account</a></li>   &lt;!&ndash; TODO: create editAccount endpoint + editAccount in repositoryDB &ndash;&gt;
             <li><a href="/wishlist/logout">Log out</a></li>
             <li><a href="#">Contact us</a></li>
         </ul>
@@ -122,7 +148,7 @@
         <br>
         <h2>Wishlist.com</h2>
     </div>
-</div>
+</div>-->
 
 
 </section>
@@ -154,6 +180,136 @@
     <p>enes0539@stud.kea.dk</p>
     <p>navi0221@stud.kea.dk</p>
 </section>
+
+<style>
+
+* {
+    transition: all 0.3s ease-in-out;
+}
+
+.frontpagePicture {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+body {
+    background-image: url("/images/gradient.jpg");
+}
+
+.container {
+    clear: both;
+    overflow: auto;
+    background-color: #ededed ;
+}
+
+nav {
+    float: right;
+    padding: 2rem;
+}
+
+img {
+    height: 800px;
+    background-image: url(/images/money.jpg);
+    background-size: cover;
+}
+
+.logo img {
+    height: 100px;
+    width: 100px;
+    float: left;
+    display: flex;
+    justify-content: center;
+}
+
+ul li {
+    font-family: 'Oxygen', sans-serif;
+    display: inline-block;
+    padding: 10px;
+    font-size: 20px;
+    color: #534741;
+}
+
+ul li:hover {
+    color: orange;
+}
+
+
+@media screen and (max-width: 750px) {
+    .logo{
+        display: none;
+    }
+
+    ul li{
+        display: none;
+        padding: 5rem;
+    }
+}
+
+.footer {
+    padding: 40px 0;
+    background-color: lightgray;
+}
+
+.footer .social {
+    text-align: center;
+    padding-bottom: 25px;
+    color: dodgerblue;
+}
+
+.footer .social a {
+    font-size: 24px;
+    color: inherit;
+    border: 1px solid #ccc;
+    width: 40px;
+    height: 40px;
+    line-height: 38px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    margin: 0 8px;
+    opacity: 90%;
+}
+
+.footer .social a:hover {
+    opacity: 120%;
+}
+
+.footer ul {
+    margin-top: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.footer ul li a {
+    color: inherit;;
+    text-decoration: none;
+    opacity: 80%;
+}
+
+.footer ul li {
+    display: inline-block;
+    padding: 0 15px;
+}
+
+
+.footer .copyright {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.footer p {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 15px;
+}
+
+</style>
 
 </body>
 </html>
