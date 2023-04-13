@@ -23,12 +23,12 @@ public class wishlistController {
         return session.getAttribute("user") != null;
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public String index() {
         return "index";
     }
 
-    @PostMapping("") // index is loginPage
+    @PostMapping("/") // index is loginPage
     public String index(@RequestParam("userName") String userName,
                         @RequestParam("userPassword") String userPassword,
                         HttpSession session,
@@ -48,12 +48,11 @@ public class wishlistController {
         model.addAttribute("wrongLoginInfo", true);
         System.out.println("wrong login");
         return "index";
-        //  boolean login = wishlistService.checkLogin(uid, pwd);
+    }
 
-      /*  System.out.println(login);
-        // ? means if true - : means if else
-        return (login) ? "redirect:/wishlist/SuccessSeeLists" : "redirect:/wishlist/index/";*/
-
+    @GetMapping("/frontpage")
+    public String frontPage(HttpSession session) {
+        return isLoggedIn(session) ? "frontpage" : "index";
     }
 
     @GetMapping("/createwish")
