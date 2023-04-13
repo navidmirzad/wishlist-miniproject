@@ -191,18 +191,22 @@ public class wishlistRepositoryDB {
         }
     }
 
-    public User getUser(String uid) {
-        User user = new User();
+    public User getUser(String userName) {
+       // User user = new User();
 
         try (Connection con = getConnection()) {
-            String SQL = "SELECT userName from users";
+            String SQL = "SELECT userName, userPassword from users where userName = ?";
             PreparedStatement preparedStatement = con.prepareStatement(SQL);
+            preparedStatement.setString(1, userName);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            System.out.println("inde i getUser");
 
-            if (user.equals(uid)) {
-                return user;
+            if (resultSet.next()) {
+                String userName1 = resultSet.getString("userName");
+                String userPassword1 = resultSet.getString("userPassword");
+                if (userName1.equals(userName)) {
+                    return new User(userName1, userPassword1);
+                }
             }
 
         } catch (SQLException e) {

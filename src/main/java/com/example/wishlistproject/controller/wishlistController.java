@@ -23,13 +23,41 @@ public class wishlistController {
         return session.getAttribute("user") != null;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public String index() {
         return "index";
     }
 
+    @PostMapping("") // index is loginPage
+    public String index(@RequestParam("userName") String userName,
+                        @RequestParam("userPassword") String userPassword,
+                        HttpSession session,
+                        Model model)
+    {
+        // find user in repo - return loggedIn if succes
+        User user = wishlistService.getUser(userName);
+        System.out.println(user);
+        if (user != null)
+            if (user.getUserPassword().equals(userPassword)) {
+                // create session for user and set session timeout to 30 sec (container default: 15 min)
+                session.setAttribute("user", user);
+                session.setMaxInactiveInterval(30);
+                return "SuccessSeeLists";
+            }
+        // wrong login info
+        model.addAttribute("wrongLoginInfo", true);
+        System.out.println("wrong login");
+        return "index";
+        //  boolean login = wishlistService.checkLogin(uid, pwd);
+
+      /*  System.out.println(login);
+        // ? means if true - : means if else
+        return (login) ? "redirect:/wishlist/SuccessSeeLists" : "redirect:/wishlist/index/";*/
+
+    }
+
     @GetMapping("/createwish")
-    public String createWish(Model model) {
+    public String createWish(Model model, HttpSession session) {
         WishDTO wish = new WishDTO();
         model.addAttribute("wish", wish);
 
@@ -90,40 +118,6 @@ public class wishlistController {
     public String seeWishlists(HttpSession session) {
         return isLoggedIn(session) ? "SuccessSeeLists" : "index";
     }
-
-    @GetMapping("/index")
-    public String showLogin() {
-        // return login form
-        return "index";
-    }
-
-    @PostMapping("/index") // index is loginPage
-    public String index(@RequestParam("uid") String uid, @RequestParam("pwd") String pwd,
-                        HttpSession session,
-                        Model model)
-    {
-        // find user in repo - return loggedIn if succes
-        User user = wishlistService.getUser(uid);
-        if (user != null)
-            if (user.getUserPassword().equals(pwd)) {
-                // create session for user and set session timeout to 30 sec (container default: 15 min)
-                session.setAttribute("user", user);
-                session.setMaxInactiveInterval(30);
-                return "/wishlist/SuccessSeeLists";
-            }
-        // wrong login info
-        model.addAttribute("wrongLoginInfo", true);
-        return "index";
-      //  boolean login = wishlistService.checkLogin(uid, pwd);
-
-      /*  System.out.println(login);
-        // ? means if true - : means if else
-        return (login) ? "redirect:/wishlist/SuccessSeeLists" : "redirect:/wishlist/index/";*/
-
-    }
-
-
-
 
 
 }

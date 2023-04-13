@@ -25,6 +25,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public User(String userName, String userPassword) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+    }
+
     public User() {
 
     }
