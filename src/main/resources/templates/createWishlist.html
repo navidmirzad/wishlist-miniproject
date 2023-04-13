@@ -23,6 +23,11 @@
     <button type="submit" class="btn btn-dark">Register</button>
 
     <a th:href="@{/wishlist/frontpage}" class="btn btn-dark">Go to homepage</a>
+    <form th:action="@{/wishlist/createwishlist}" method="post" th:object="${wishlist}">
+      <button type="submit" class="btn btn-primary">Create Wishlist</button>
+    </form>
+
+
 
   </form>
 </main>

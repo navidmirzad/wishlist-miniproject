@@ -3,6 +3,7 @@ package com.example.wishlistproject.controller;
 import com.example.wishlistproject.dto.WishDTO;
 import com.example.wishlistproject.dto.wishlistDTO;
 import com.example.wishlistproject.model.User;
+import com.example.wishlistproject.model.Wishlist;
 import com.example.wishlistproject.service.wishlistService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -118,6 +119,12 @@ public class wishlistController {
         return "createUserSuccess";
     }
 
+    @GetMapping("/seewishlists")
+    public String seeWishlists(Model model) {
+        model.addAttribute("wishlists", wishlistService.getWishlists());
+        return "wishlists";
+    }
+
     @GetMapping("/createwishlist")
     public String createWishlist(Model model, HttpSession session) {
         wishlistDTO wishlist = new wishlistDTO();
@@ -130,9 +137,14 @@ public class wishlistController {
     public String createdWishlist(@ModelAttribute("wishlist") wishlistDTO wishlist,
                                   Model model) {
         wishlistService.createWishlist(wishlist);
-        model.addAttribute("wishlists", wishlistService.getWishLists());
 
-        return "SuccessSeeLists";
+        return "redirect:/wishlist/seewishlists";
+    }
+
+    @PostMapping("/deletewishlist")
+    public String deleteWishlist(@RequestParam("id") int id) {
+        wishlistService.deleteWishlist(id);
+        return "redirect:/wishlist/seewishlists";
     }
 
     @GetMapping("/SuccessSeeLists")
