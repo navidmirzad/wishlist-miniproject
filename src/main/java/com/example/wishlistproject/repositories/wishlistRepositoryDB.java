@@ -244,7 +244,7 @@ public class wishlistRepositoryDB {
 
     }
 
-    public boolean checkLogin(String username, String password) {
+/*    public boolean checkLogin(String username, String password) {
 
         try (Connection con = getConnection()) {
             String sql = "SELECT * FROM users WHERE userName = ? AND userPassword = ?";
@@ -252,8 +252,6 @@ public class wishlistRepositoryDB {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
-
-            System.out.println("inde i checkLogin");
 
             String uid = null;
             String pwd = null;
@@ -270,7 +268,7 @@ public class wishlistRepositoryDB {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     public User getUser(String userName) {
        // User user = new User();

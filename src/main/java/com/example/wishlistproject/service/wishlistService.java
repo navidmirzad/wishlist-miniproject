@@ -48,9 +48,9 @@ public class wishlistService {
         return wishlistRepositoryDB.getWishes();
     }
 
-    public boolean checkLogin(String username, String password) {
+  /*  public boolean checkLogin(String username, String password) {
         return wishlistRepositoryDB.checkLogin(username, password);
-    }
+    }*/
 
     public User getUser(String uid) {
         return wishlistRepositoryDB.getUser(uid);
