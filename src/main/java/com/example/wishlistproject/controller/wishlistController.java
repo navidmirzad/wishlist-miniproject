@@ -115,7 +115,7 @@ public class wishlistController {
     @PostMapping("/createuser")
     public String createdUser(@ModelAttribute("user") User user) {
         wishlistService.createUser(user);
-        return "createUserSucces";
+        return "createUserSuccess";
     }
 
     @GetMapping("/createwishlist")
