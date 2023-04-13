@@ -31,7 +31,7 @@ public class wishlistRepositoryDB {
 
         try (Connection con = getConnection()) {
             String sql = "SELECT listID, listName, listImageURL FROM wish_lists;";
-            Statement statement =con.createStatement();
+            Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
