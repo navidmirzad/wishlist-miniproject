@@ -64,6 +64,14 @@ public class wishlistService {
         return wishlistRepositoryDB.getUser(uid);
     }
 
+    public User getUserById(int id) {
+        return wishlistRepositoryDB.getUserById(id);
+    }
+
+    public void deleteAccount(int id) {
+        wishlistRepositoryDB.deleteAccount(id);
+    }
+
     public void deleteWishlist(int id) {
         wishlistRepositoryDB.deleteWishlist(id);
     }

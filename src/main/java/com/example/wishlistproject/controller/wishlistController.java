@@ -63,6 +63,21 @@ public class wishlistController {
         return isLoggedIn(session) ? "frontpage" : "index";
     }
 
+    @GetMapping("/youraccount")
+    public String yourAccount(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        user = wishlistService.getUserById(user.getUserID());
+        model.addAttribute("user", user);
+        return isLoggedIn(session) ? "accountinfo" : "index";
+    }
+
+    @PostMapping("/youraccount/delete")
+    public String deleteAccount(HttpSession session, @RequestParam("id") int id) {
+        wishlistService.deleteAccount(id);
+        session.invalidate();
+        return "redirect:/wishlist/";
+    }
+
     @GetMapping("/createwish")
     public String createWish(Model model, HttpSession session) {
         WishDTO wish = new WishDTO();

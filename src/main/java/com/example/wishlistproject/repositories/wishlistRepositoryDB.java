@@ -343,5 +343,55 @@ public class wishlistRepositoryDB {
         return null;
     }
 
+    public User getUserById(int id) {
+
+        try (Connection con = getConnection()) {
+            String sql = "SELECT * FROM users WHERE userid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return new User(resultSet.getInt("userid"),
+                        resultSet.getString("userName"),
+                        resultSet.getString("userPassword"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("birthDate"),
+                        resultSet.getString("gender"),
+                        resultSet.getString("email"),
+                        resultSet.getInt("phoneNumber"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public void deleteAccount(int id) {
+
+        try (Connection con = getConnection()){
+
+            String sqlWishes = "DELETE FROM wishes WHERE listid IN (SELECT listid FROM wish_lists WHERE userid = ?)";
+            PreparedStatement psWishes = con.prepareStatement(sqlWishes);
+            psWishes.setInt(1, id);
+            psWishes.executeUpdate();
+
+            String sqlWishlist = "DELETE FROM wish_lists WHERE userid = ?";
+            PreparedStatement preparedStatementList = con.prepareStatement(sqlWishlist);
+            preparedStatementList.setInt(1, id);
+            preparedStatementList.execute();
+
+            String sqlUser = "DELETE FROM users WHERE userid = ?";
+            PreparedStatement preparedStatementUser = con.prepareStatement(sqlUser);
+            preparedStatementUser.setInt(1,id);
+            preparedStatementUser.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
