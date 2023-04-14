@@ -38,6 +38,7 @@
 
 
 <a th:href="@{/wishlist/frontpage}" class="btn btn-dark">Go to homepage</a>
+
 <a th:href="@{/wishlist/youraccount/edit/{id}(id=${user.userID})}" class="btn btn-warning">Edit account</a>
 
 <form th:action="@{/wishlist/youraccount/delete}" method="post">

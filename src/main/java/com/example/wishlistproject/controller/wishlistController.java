@@ -78,6 +78,21 @@ public class wishlistController {
         return "redirect:/wishlist/";
     }
 
+    @GetMapping("/youraccount/edit/{id}")
+    public String editAccount(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        user = wishlistService.getUserById(user.getUserID());
+        model.addAttribute("user", user);
+        return "editaccount";
+    }
+
+    @PostMapping("youraccount/edit/{id}")
+    public String editedAccount(HttpSession session, User editedUser) {
+        User user = (User) session.getAttribute("user");
+        wishlistService.editAccount(user.getUserID(), editedUser);
+        return "redirect:/wishlist/youraccount";
+    }
+
     @GetMapping("/createwish")
     public String createWish(Model model, HttpSession session) {
         WishDTO wish = new WishDTO();
@@ -108,12 +123,11 @@ public class wishlistController {
     }
 
     @GetMapping("/edit/wish/{id}")
-    public String editWish(@PathVariable int wishid, Model model, HttpSession session) {
-        WishDTO wish = wishlistService.findWishById(wishid);
+    public String editWish(@PathVariable int id, Model model, HttpSession session) {
+        WishDTO wish = wishlistService.findWishById(id);
         User user = (User) session.getAttribute("user");
-        int id = user.getUserID();
         model.addAttribute("wish", wish);
-        model.addAttribute("wishlists", wishlistService.getWishlists(id));
+        model.addAttribute("wishlists", wishlistService.getWishlists(user.getUserID()));
         return "editWish";
     }
 

@@ -72,6 +72,10 @@ public class wishlistService {
         wishlistRepositoryDB.deleteAccount(id);
     }
 
+    public void editAccount(int id, User editedUser) {
+        wishlistRepositoryDB.editAccount(id, editedUser);
+    }
+
     public void deleteWishlist(int id) {
         wishlistRepositoryDB.deleteWishlist(id);
     }

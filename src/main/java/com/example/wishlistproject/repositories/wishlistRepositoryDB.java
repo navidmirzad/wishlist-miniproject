@@ -387,11 +387,37 @@ public class wishlistRepositoryDB {
             PreparedStatement preparedStatementUser = con.prepareStatement(sqlUser);
             preparedStatementUser.setInt(1,id);
             preparedStatementUser.execute();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
+    public void editAccount(int id, User editedUser) {
+
+        try (Connection con = getConnection()) {
+
+            //find wish and set it to editedWish
+            String sql = "UPDATE users SET userName = ?, userPassword = ?, firstName = ?, lastName = ?, birthDate = ?, gender = ?, email = ?, phoneNumber = ? WHERE userid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, editedUser.getUserName());
+            preparedStatement.setString(2, editedUser.getUserPassword());
+            preparedStatement.setString(3, editedUser.getFirstName());
+            preparedStatement.setString(4, editedUser.getLastName());
+            preparedStatement.setString(5, editedUser.getBirthdate());
+            preparedStatement.setString(6, editedUser.getGender());
+            preparedStatement.setString(7, editedUser.getEmail());
+            preparedStatement.setInt(8, editedUser.getPhoneNumber());
+            preparedStatement.setInt(9, id);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Update failed");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
