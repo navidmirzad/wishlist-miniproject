@@ -152,6 +152,19 @@ public class wishlistController {
         }
     }
 
+    @GetMapping("/edit/wishlist/{listid}")
+    public String editWishlist(@PathVariable int listid, Model model) {
+        wishlistDTO wishlist = wishlistService.findWishListById(listid);
+        model.addAttribute("wishlist", wishlist);
+        return "editWishlist";
+    }
+
+    @PostMapping("/edit/wishlist/{listid}")
+    public String editedWishlist(@PathVariable int listid, @ModelAttribute wishlistDTO editedWishlist) {
+        wishlistService.editWishlist(listid, editedWishlist);
+        return "redirect:/wishlist/seewishlists";
+    }
+
     @PostMapping("/deletewishlist")
     public String deleteWishlist(@RequestParam("id") int id) {
         wishlistService.deleteWishlist(id);

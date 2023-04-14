@@ -44,6 +44,14 @@ public class wishlistService {
         wishlistRepositoryDB.createWishlist(id, wishlist);
     }
 
+    public wishlistDTO findWishListById(int listid) {
+        return wishlistRepositoryDB.findWishListById(listid);
+    }
+
+    public void editWishlist(int listid, wishlistDTO editedWishlist) {
+        wishlistRepositoryDB.editWishlist(listid,editedWishlist);
+    }
+
     public List<WishDTO> getWishes(int listid) {
         return wishlistRepositoryDB.getWishes(listid);
     }

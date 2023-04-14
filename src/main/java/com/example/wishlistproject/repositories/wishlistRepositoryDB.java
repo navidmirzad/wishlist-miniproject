@@ -127,6 +127,48 @@ public class wishlistRepositoryDB {
         }
     }
 
+    public wishlistDTO findWishListById(int listid) {
+
+        wishlistDTO wishlist = null;
+
+        try(Connection con = getConnection()) {
+            String sql = "SELECT * FROM wish_lists WHERE listid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1,listid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                wishlist = new wishlistDTO();
+                wishlist.setListID(resultSet.getInt("listid"));
+                wishlist.setListName(resultSet.getString("listName"));
+                wishlist.setListImageURL(resultSet.getString("listImageURL"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return wishlist;
+    }
+
+    public void editWishlist(int listid, wishlistDTO editedWishlist) {
+
+        try (Connection con = getConnection()) {
+
+            //find wishlist and set it to editedWishlist
+            String sql = "UPDATE wish_lists SET listName = ?, listImageURL = ? WHERE listid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, editedWishlist.getListName());
+            preparedStatement.setString(2, editedWishlist.getListImageURL());
+            preparedStatement.setInt(3, listid);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Update failed");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public List<WishDTO> getWishes(int listid) {
 
         List<WishDTO> wishes = new ArrayList<>();
