@@ -29,7 +29,7 @@
                              style="max-width: 100%; max-height: 100px;"></td>
 
                     <td>
-                        <a th:href="@{/wishlist/seewishes(listid=${wishlist.listID})}"
+                        <a th:href="@{/wishlist/seewishes/{listid}(listid=${wishlist.listID})}"
                            th:text="${wishlist.listName}"> </a>
                     </td>
 

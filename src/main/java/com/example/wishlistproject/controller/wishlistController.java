@@ -76,12 +76,12 @@ public class wishlistController {
     @PostMapping("/createwish")
     public String createdWish(@ModelAttribute("wish") WishDTO wish, HttpSession session) {
         wishlistService.createWish(wish);
-        return "redirect:/wishlist/seewishes";
+        return "redirect:/wishlist/seewishlists";
     }
 
-    @GetMapping("/seewishes")
-    public String seeWishes(Model model, HttpSession session) {
-        model.addAttribute("wishes", wishlistService.getWishes());
+    @GetMapping("/seewishes/{listid}")
+    public String seeWishes(Model model, HttpSession session, @PathVariable int listid) {
+        model.addAttribute("wishes", wishlistService.getWishes(listid));
         return isLoggedIn(session) ? "wishes" : "index";
     }
 
@@ -162,5 +162,7 @@ public class wishlistController {
     public String seeWishlists(HttpSession session) {
         return isLoggedIn(session) ? "SuccessSeeLists" : "index";
     }
+
+
 
 }

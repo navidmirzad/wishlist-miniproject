@@ -44,8 +44,8 @@ public class wishlistService {
         wishlistRepositoryDB.createWishlist(id, wishlist);
     }
 
-    public List<WishDTO> getWishes() {
-        return wishlistRepositoryDB.getWishes();
+    public List<WishDTO> getWishes(int listid) {
+        return wishlistRepositoryDB.getWishes(listid);
     }
 
   /*  public boolean checkLogin(String username, String password) {

@@ -127,15 +127,16 @@ public class wishlistRepositoryDB {
         }
     }
 
-    public List<WishDTO> getWishes() {
+    public List<WishDTO> getWishes(int listid) {
 
         List<WishDTO> wishes = new ArrayList<>();
 
         try (Connection con = getConnection()){
             String sql = "SELECT wishid, wishname, wishlink, wishimageurl, wishdescription, wishprice, wishcount\n" +
-                    "FROM wishes";
-            Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+                    "FROM wishes WHERE listid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1,listid);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
 
                 wishes.add(new WishDTO(resultSet.getInt(1),
