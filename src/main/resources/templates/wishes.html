@@ -24,7 +24,6 @@
 
     <tbody>
     <tr th:each="wish : ${wishes}">
-        <td th:text="${wish.wishID}"></td>
         <td th:text="${wish.wishName}"></td>
         <td th:text="${wish.wishLink}"></td>
         <td><img th:src="${wish.wishImageURL}" alt="Wishlist image"
