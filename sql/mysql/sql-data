@@ -1,8 +1,0 @@
-INSERT INTO users (userName, userPassword, firstName, lastName, birthDate, gender, email, phoneNumber)
-VALUES ('testuser', 'testpassword', 'John', 'Doe', '1990-01-01', 'Male', 'john.doe@example.com', 12345678);
-
-INSERT INTO wish_lists (listName,listImageURL, userid)
-VALUES ('Test Wishlist', 'Test URL', 21);
-
-INSERT INTO wishes (wishName, wishLink, wishImageURL, wishDescription, wishPrice, wishCount) 
-VALUES ('New Wish', 'https://example.com', 'https://example.com/image.jpg', 'This is a new wish', 50, 1);
