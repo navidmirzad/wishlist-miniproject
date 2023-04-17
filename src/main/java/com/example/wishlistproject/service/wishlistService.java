@@ -44,8 +44,16 @@ public class wishlistService {
         wishlistRepositoryDB.createWishlist(id, wishlist);
     }
 
-    public List<WishDTO> getWishes() {
-        return wishlistRepositoryDB.getWishes();
+    public wishlistDTO findWishListById(int listid) {
+        return wishlistRepositoryDB.findWishListById(listid);
+    }
+
+    public void editWishlist(int listid, wishlistDTO editedWishlist) {
+        wishlistRepositoryDB.editWishlist(listid,editedWishlist);
+    }
+
+    public List<WishDTO> getWishes(int listid) {
+        return wishlistRepositoryDB.getWishes(listid);
     }
 
   /*  public boolean checkLogin(String username, String password) {
@@ -54,6 +62,18 @@ public class wishlistService {
 
     public User getUser(String uid) {
         return wishlistRepositoryDB.getUser(uid);
+    }
+
+    public User getUserById(int id) {
+        return wishlistRepositoryDB.getUserById(id);
+    }
+
+    public void deleteAccount(int id) {
+        wishlistRepositoryDB.deleteAccount(id);
+    }
+
+    public void editAccount(int id, User editedUser) {
+        wishlistRepositoryDB.editAccount(id, editedUser);
     }
 
     public void deleteWishlist(int id) {

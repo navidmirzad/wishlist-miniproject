@@ -63,6 +63,36 @@ public class wishlistController {
         return isLoggedIn(session) ? "frontpage" : "index";
     }
 
+    @GetMapping("/youraccount")
+    public String yourAccount(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        user = wishlistService.getUserById(user.getUserID());
+        model.addAttribute("user", user);
+        return isLoggedIn(session) ? "accountinfo" : "index";
+    }
+
+    @PostMapping("/youraccount/delete")
+    public String deleteAccount(HttpSession session, @RequestParam("id") int id) {
+        wishlistService.deleteAccount(id);
+        session.invalidate();
+        return "redirect:/wishlist/";
+    }
+
+    @GetMapping("/youraccount/edit/{id}")
+    public String editAccount(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        user = wishlistService.getUserById(user.getUserID());
+        model.addAttribute("user", user);
+        return "editaccount";
+    }
+
+    @PostMapping("youraccount/edit/{id}")
+    public String editedAccount(HttpSession session, User editedUser) {
+        User user = (User) session.getAttribute("user");
+        wishlistService.editAccount(user.getUserID(), editedUser);
+        return "redirect:/wishlist/youraccount";
+    }
+
     @GetMapping("/createwish")
     public String createWish(Model model, HttpSession session) {
         WishDTO wish = new WishDTO();
@@ -76,12 +106,12 @@ public class wishlistController {
     @PostMapping("/createwish")
     public String createdWish(@ModelAttribute("wish") WishDTO wish, HttpSession session) {
         wishlistService.createWish(wish);
-        return "redirect:/wishlist/seewishes";
+        return "redirect:/wishlist/seewishlists";
     }
 
-    @GetMapping("/seewishes")
-    public String seeWishes(Model model, HttpSession session) {
-        model.addAttribute("wishes", wishlistService.getWishes());
+    @GetMapping("/seewishes/{listid}")
+    public String seeWishes(Model model, HttpSession session, @PathVariable int listid) {
+        model.addAttribute("wishes", wishlistService.getWishes(listid));
         return isLoggedIn(session) ? "wishes" : "index";
     }
 
@@ -93,12 +123,11 @@ public class wishlistController {
     }
 
     @GetMapping("/edit/wish/{id}")
-    public String editWish(@PathVariable int wishid, Model model, HttpSession session) {
-        WishDTO wish = wishlistService.findWishById(wishid);
+    public String editWish(@PathVariable int id, Model model, HttpSession session) {
+        WishDTO wish = wishlistService.findWishById(id);
         User user = (User) session.getAttribute("user");
-        int id = user.getUserID();
         model.addAttribute("wish", wish);
-        model.addAttribute("wishlists", wishlistService.getWishlists(id));
+        model.addAttribute("wishlists", wishlistService.getWishlists(user.getUserID()));
         return "editWish";
     }
 
@@ -152,6 +181,19 @@ public class wishlistController {
         }
     }
 
+    @GetMapping("/edit/wishlist/{listid}")
+    public String editWishlist(@PathVariable int listid, Model model) {
+        wishlistDTO wishlist = wishlistService.findWishListById(listid);
+        model.addAttribute("wishlist", wishlist);
+        return "editWishlist";
+    }
+
+    @PostMapping("/edit/wishlist/{listid}")
+    public String editedWishlist(@PathVariable int listid, @ModelAttribute wishlistDTO editedWishlist) {
+        wishlistService.editWishlist(listid, editedWishlist);
+        return "redirect:/wishlist/seewishlists";
+    }
+
     @PostMapping("/deletewishlist")
     public String deleteWishlist(@RequestParam("id") int id) {
         wishlistService.deleteWishlist(id);
@@ -162,5 +204,7 @@ public class wishlistController {
     public String seeWishlists(HttpSession session) {
         return isLoggedIn(session) ? "SuccessSeeLists" : "index";
     }
+
+
 
 }

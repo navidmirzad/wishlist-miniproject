@@ -127,15 +127,58 @@ public class wishlistRepositoryDB {
         }
     }
 
-    public List<WishDTO> getWishes() {
+    public wishlistDTO findWishListById(int listid) {
+
+        wishlistDTO wishlist = null;
+
+        try(Connection con = getConnection()) {
+            String sql = "SELECT * FROM wish_lists WHERE listid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1,listid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                wishlist = new wishlistDTO();
+                wishlist.setListID(resultSet.getInt("listid"));
+                wishlist.setListName(resultSet.getString("listName"));
+                wishlist.setListImageURL(resultSet.getString("listImageURL"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return wishlist;
+    }
+
+    public void editWishlist(int listid, wishlistDTO editedWishlist) {
+
+        try (Connection con = getConnection()) {
+
+            //find wishlist and set it to editedWishlist
+            String sql = "UPDATE wish_lists SET listName = ?, listImageURL = ? WHERE listid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, editedWishlist.getListName());
+            preparedStatement.setString(2, editedWishlist.getListImageURL());
+            preparedStatement.setInt(3, listid);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Update failed");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public List<WishDTO> getWishes(int listid) {
 
         List<WishDTO> wishes = new ArrayList<>();
 
         try (Connection con = getConnection()){
             String sql = "SELECT wishid, wishname, wishlink, wishimageurl, wishdescription, wishprice, wishcount\n" +
-                    "FROM wishes";
-            Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
+                    "FROM wishes WHERE listid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1,listid);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
 
                 wishes.add(new WishDTO(resultSet.getInt(1),
@@ -300,5 +343,81 @@ public class wishlistRepositoryDB {
         return null;
     }
 
+    public User getUserById(int id) {
+
+        try (Connection con = getConnection()) {
+            String sql = "SELECT * FROM users WHERE userid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return new User(resultSet.getInt("userid"),
+                        resultSet.getString("userName"),
+                        resultSet.getString("userPassword"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("birthDate"),
+                        resultSet.getString("gender"),
+                        resultSet.getString("email"),
+                        resultSet.getInt("phoneNumber"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public void deleteAccount(int id) {
+
+        try (Connection con = getConnection()){
+
+            String sqlWishes = "DELETE FROM wishes WHERE listid IN (SELECT listid FROM wish_lists WHERE userid = ?)";
+            PreparedStatement psWishes = con.prepareStatement(sqlWishes);
+            psWishes.setInt(1, id);
+            psWishes.executeUpdate();
+
+            String sqlWishlist = "DELETE FROM wish_lists WHERE userid = ?";
+            PreparedStatement preparedStatementList = con.prepareStatement(sqlWishlist);
+            preparedStatementList.setInt(1, id);
+            preparedStatementList.execute();
+
+            String sqlUser = "DELETE FROM users WHERE userid = ?";
+            PreparedStatement preparedStatementUser = con.prepareStatement(sqlUser);
+            preparedStatementUser.setInt(1,id);
+            preparedStatementUser.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void editAccount(int id, User editedUser) {
+
+        try (Connection con = getConnection()) {
+
+            //find wish and set it to editedWish
+            String sql = "UPDATE users SET userName = ?, userPassword = ?, firstName = ?, lastName = ?, birthDate = ?, gender = ?, email = ?, phoneNumber = ? WHERE userid = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, editedUser.getUserName());
+            preparedStatement.setString(2, editedUser.getUserPassword());
+            preparedStatement.setString(3, editedUser.getFirstName());
+            preparedStatement.setString(4, editedUser.getLastName());
+            preparedStatement.setString(5, editedUser.getBirthdate());
+            preparedStatement.setString(6, editedUser.getGender());
+            preparedStatement.setString(7, editedUser.getEmail());
+            preparedStatement.setInt(8, editedUser.getPhoneNumber());
+            preparedStatement.setInt(9, id);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Update failed");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
