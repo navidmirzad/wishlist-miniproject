@@ -1,0 +1,38 @@
+CREATE DATABASE IF NOT EXISTS wishListDB;
+USE wishListDB;
+
+DROP TABlE IF EXISTS wishes;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS wish_lists;
+
+CREATE TABLE users(
+userid INT PRIMARY KEY AUTO_INCREMENT,
+userName VARCHAR(255) NOT NULL,
+userPassword VARCHAR(255) NOT NULL,
+firstName VARCHAR(255) NOT NULL,
+lastName VARCHAR(255) NOT NULL,
+birthDate DATE NOT NULL,
+gender VARCHAR(255) NOT NULL,
+email VARCHAR(255) NOT NULL,
+phoneNumber INT NOT NULL  
+);
+
+CREATE TABLE wish_lists(
+listid INT PRIMARY KEY AUTO_INCREMENT,
+listName VARCHAR(255) NOT NULL,
+listImageURL VARCHAR(255) NOT NULL,
+userid INT,
+FOREIGN KEY (userid) REFERENCES users(userid)
+);
+
+CREATE TABLE wishes(
+wishid INT PRIMARY KEY AUTO_INCREMENT,
+wishName VARCHAR(255) UNIQUE,
+wishLink VARCHAR(255),
+wishImageURL VARCHAR(255),
+wishDescription VARCHAR(255),
+wishPrice INT,
+wishCount INT NOT NULL,
+listid INT,
+FOREIGN KEY (listid) REFERENCES wish_lists(listid)
+);
