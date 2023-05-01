@@ -26,7 +26,7 @@ CMD set -eux; \
 # docker build  -t wishlist-project .
 
 # Run like this:
-    # docker run -it --rm --name wishlist-project --pid=host -p 8080:8080 -e MYSQL_ROOT_PASSWORD=root wishlist-project
+# docker run -it --rm --name wishlist-project --pid=host -p 8080:8080 -e MYSQL_ROOT_PASSWORD=root wishlist-project
 #
 #   - `docker run`: This command is used to run a container from an image.
 #   - `-it`: This switch allocates a pseudo-TTY and opens an interactive terminal within the container.
